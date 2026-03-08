@@ -27,6 +27,13 @@ pnpm dev
 3. Implement handler in `apps/go-api/internal/service`
 4. Consume typed client in `apps/web`
 
+## Demo flowchart
+
+- Excalidraw source: `docs/excalidraw/demo-flowchart.excalidraw`
+- Exported PNG: `docs/excalidraw/demo-flowchart.png`
+
+![Go + Next contract demo flow](docs/excalidraw/demo-flowchart.png)
+
 ## Useful commands
 
 ```bash
