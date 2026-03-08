@@ -8,6 +8,13 @@ service GreeterService {
   rpc Greet(GreetRequest) returns (GreetResponse) {}
 }
 
+service TodoService {
+  rpc SyncTodos(SyncTodosRequest) returns (TodoListResponse) {}
+  rpc CreateTodo(CreateTodoRequest) returns (TodoListResponse) {}
+  rpc ToggleTodo(ToggleTodoRequest) returns (TodoListResponse) {}
+  rpc DeleteTodo(DeleteTodoRequest) returns (TodoListResponse) {}
+}
+
 message GreetRequest {
   string name = 1;
 }
@@ -15,4 +22,35 @@ message GreetRequest {
 message GreetResponse {
   string message = 1;
   string served_at = 2;
+}
+
+message Todo {
+  string id = 1;
+  string title = 2;
+  bool completed = 3;
+  string created_at = 4;
+}
+
+message TodoListResponse {
+  repeated Todo todos = 1;
+}
+
+message SyncTodosRequest {
+  string session_id = 1;
+  repeated Todo todos = 2;
+}
+
+message CreateTodoRequest {
+  string session_id = 1;
+  string title = 2;
+}
+
+message ToggleTodoRequest {
+  string session_id = 1;
+  string id = 2;
+}
+
+message DeleteTodoRequest {
+  string session_id = 1;
+  string id = 2;
 }

@@ -13,6 +13,8 @@ func main() {
 	mux := http.NewServeMux()
 	path, handler := apiv1connect.NewGreeterServiceHandler(&service.GreeterService{})
 	mux.Handle(path, handler)
+	todoPath, todoHandler := apiv1connect.NewTodoServiceHandler(service.NewTodoService())
+	mux.Handle(todoPath, todoHandler)
 	mux.Handle("/healthz", http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte("ok"))
@@ -32,7 +34,7 @@ func main() {
 func withCORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Connect-Protocol-Version")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Connect-Protocol-Version,Connect-Timeout-Ms")
 		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
 
 		if r.Method == http.MethodOptions {

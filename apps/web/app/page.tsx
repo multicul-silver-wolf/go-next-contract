@@ -1,5 +1,6 @@
 import { Button } from "@workspace/ui/components/button"
 import { greeterClient } from "@/lib/rpc"
+import { TodoApp } from "@/components/todo-app"
 
 export const dynamic = "force-dynamic"
 
@@ -32,6 +33,8 @@ export default async function Page() {
           <p className="mt-2 text-xs text-red-600">RPC error: {error}</p>
         ) : null}
       </div>
+
+      <TodoApp />
 
       <div className="flex items-center gap-3">
         <Button asChild>

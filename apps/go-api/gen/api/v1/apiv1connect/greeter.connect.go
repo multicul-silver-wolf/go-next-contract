@@ -23,6 +23,8 @@ const _ = connect.IsAtLeastVersion1_13_0
 const (
 	// GreeterServiceName is the fully-qualified name of the GreeterService service.
 	GreeterServiceName = "api.v1.GreeterService"
+	// TodoServiceName is the fully-qualified name of the TodoService service.
+	TodoServiceName = "api.v1.TodoService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -35,6 +37,14 @@ const (
 const (
 	// GreeterServiceGreetProcedure is the fully-qualified name of the GreeterService's Greet RPC.
 	GreeterServiceGreetProcedure = "/api.v1.GreeterService/Greet"
+	// TodoServiceSyncTodosProcedure is the fully-qualified name of the TodoService's SyncTodos RPC.
+	TodoServiceSyncTodosProcedure = "/api.v1.TodoService/SyncTodos"
+	// TodoServiceCreateTodoProcedure is the fully-qualified name of the TodoService's CreateTodo RPC.
+	TodoServiceCreateTodoProcedure = "/api.v1.TodoService/CreateTodo"
+	// TodoServiceToggleTodoProcedure is the fully-qualified name of the TodoService's ToggleTodo RPC.
+	TodoServiceToggleTodoProcedure = "/api.v1.TodoService/ToggleTodo"
+	// TodoServiceDeleteTodoProcedure is the fully-qualified name of the TodoService's DeleteTodo RPC.
+	TodoServiceDeleteTodoProcedure = "/api.v1.TodoService/DeleteTodo"
 )
 
 // GreeterServiceClient is a client for the api.v1.GreeterService service.
@@ -105,4 +115,152 @@ type UnimplementedGreeterServiceHandler struct{}
 
 func (UnimplementedGreeterServiceHandler) Greet(context.Context, *connect.Request[v1.GreetRequest]) (*connect.Response[v1.GreetResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.GreeterService.Greet is not implemented"))
+}
+
+// TodoServiceClient is a client for the api.v1.TodoService service.
+type TodoServiceClient interface {
+	SyncTodos(context.Context, *connect.Request[v1.SyncTodosRequest]) (*connect.Response[v1.TodoListResponse], error)
+	CreateTodo(context.Context, *connect.Request[v1.CreateTodoRequest]) (*connect.Response[v1.TodoListResponse], error)
+	ToggleTodo(context.Context, *connect.Request[v1.ToggleTodoRequest]) (*connect.Response[v1.TodoListResponse], error)
+	DeleteTodo(context.Context, *connect.Request[v1.DeleteTodoRequest]) (*connect.Response[v1.TodoListResponse], error)
+}
+
+// NewTodoServiceClient constructs a client for the api.v1.TodoService service. By default, it uses
+// the Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and sends
+// uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or
+// connect.WithGRPCWeb() options.
+//
+// The URL supplied here should be the base URL for the Connect or gRPC server (for example,
+// http://api.acme.com or https://acme.com/grpc).
+func NewTodoServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) TodoServiceClient {
+	baseURL = strings.TrimRight(baseURL, "/")
+	todoServiceMethods := v1.File_api_v1_greeter_proto.Services().ByName("TodoService").Methods()
+	return &todoServiceClient{
+		syncTodos: connect.NewClient[v1.SyncTodosRequest, v1.TodoListResponse](
+			httpClient,
+			baseURL+TodoServiceSyncTodosProcedure,
+			connect.WithSchema(todoServiceMethods.ByName("SyncTodos")),
+			connect.WithClientOptions(opts...),
+		),
+		createTodo: connect.NewClient[v1.CreateTodoRequest, v1.TodoListResponse](
+			httpClient,
+			baseURL+TodoServiceCreateTodoProcedure,
+			connect.WithSchema(todoServiceMethods.ByName("CreateTodo")),
+			connect.WithClientOptions(opts...),
+		),
+		toggleTodo: connect.NewClient[v1.ToggleTodoRequest, v1.TodoListResponse](
+			httpClient,
+			baseURL+TodoServiceToggleTodoProcedure,
+			connect.WithSchema(todoServiceMethods.ByName("ToggleTodo")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteTodo: connect.NewClient[v1.DeleteTodoRequest, v1.TodoListResponse](
+			httpClient,
+			baseURL+TodoServiceDeleteTodoProcedure,
+			connect.WithSchema(todoServiceMethods.ByName("DeleteTodo")),
+			connect.WithClientOptions(opts...),
+		),
+	}
+}
+
+// todoServiceClient implements TodoServiceClient.
+type todoServiceClient struct {
+	syncTodos  *connect.Client[v1.SyncTodosRequest, v1.TodoListResponse]
+	createTodo *connect.Client[v1.CreateTodoRequest, v1.TodoListResponse]
+	toggleTodo *connect.Client[v1.ToggleTodoRequest, v1.TodoListResponse]
+	deleteTodo *connect.Client[v1.DeleteTodoRequest, v1.TodoListResponse]
+}
+
+// SyncTodos calls api.v1.TodoService.SyncTodos.
+func (c *todoServiceClient) SyncTodos(ctx context.Context, req *connect.Request[v1.SyncTodosRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return c.syncTodos.CallUnary(ctx, req)
+}
+
+// CreateTodo calls api.v1.TodoService.CreateTodo.
+func (c *todoServiceClient) CreateTodo(ctx context.Context, req *connect.Request[v1.CreateTodoRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return c.createTodo.CallUnary(ctx, req)
+}
+
+// ToggleTodo calls api.v1.TodoService.ToggleTodo.
+func (c *todoServiceClient) ToggleTodo(ctx context.Context, req *connect.Request[v1.ToggleTodoRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return c.toggleTodo.CallUnary(ctx, req)
+}
+
+// DeleteTodo calls api.v1.TodoService.DeleteTodo.
+func (c *todoServiceClient) DeleteTodo(ctx context.Context, req *connect.Request[v1.DeleteTodoRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return c.deleteTodo.CallUnary(ctx, req)
+}
+
+// TodoServiceHandler is an implementation of the api.v1.TodoService service.
+type TodoServiceHandler interface {
+	SyncTodos(context.Context, *connect.Request[v1.SyncTodosRequest]) (*connect.Response[v1.TodoListResponse], error)
+	CreateTodo(context.Context, *connect.Request[v1.CreateTodoRequest]) (*connect.Response[v1.TodoListResponse], error)
+	ToggleTodo(context.Context, *connect.Request[v1.ToggleTodoRequest]) (*connect.Response[v1.TodoListResponse], error)
+	DeleteTodo(context.Context, *connect.Request[v1.DeleteTodoRequest]) (*connect.Response[v1.TodoListResponse], error)
+}
+
+// NewTodoServiceHandler builds an HTTP handler from the service implementation. It returns the path
+// on which to mount the handler and the handler itself.
+//
+// By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
+// and JSON codecs. They also support gzip compression.
+func NewTodoServiceHandler(svc TodoServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	todoServiceMethods := v1.File_api_v1_greeter_proto.Services().ByName("TodoService").Methods()
+	todoServiceSyncTodosHandler := connect.NewUnaryHandler(
+		TodoServiceSyncTodosProcedure,
+		svc.SyncTodos,
+		connect.WithSchema(todoServiceMethods.ByName("SyncTodos")),
+		connect.WithHandlerOptions(opts...),
+	)
+	todoServiceCreateTodoHandler := connect.NewUnaryHandler(
+		TodoServiceCreateTodoProcedure,
+		svc.CreateTodo,
+		connect.WithSchema(todoServiceMethods.ByName("CreateTodo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	todoServiceToggleTodoHandler := connect.NewUnaryHandler(
+		TodoServiceToggleTodoProcedure,
+		svc.ToggleTodo,
+		connect.WithSchema(todoServiceMethods.ByName("ToggleTodo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	todoServiceDeleteTodoHandler := connect.NewUnaryHandler(
+		TodoServiceDeleteTodoProcedure,
+		svc.DeleteTodo,
+		connect.WithSchema(todoServiceMethods.ByName("DeleteTodo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	return "/api.v1.TodoService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case TodoServiceSyncTodosProcedure:
+			todoServiceSyncTodosHandler.ServeHTTP(w, r)
+		case TodoServiceCreateTodoProcedure:
+			todoServiceCreateTodoHandler.ServeHTTP(w, r)
+		case TodoServiceToggleTodoProcedure:
+			todoServiceToggleTodoHandler.ServeHTTP(w, r)
+		case TodoServiceDeleteTodoProcedure:
+			todoServiceDeleteTodoHandler.ServeHTTP(w, r)
+		default:
+			http.NotFound(w, r)
+		}
+	})
+}
+
+// UnimplementedTodoServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedTodoServiceHandler struct{}
+
+func (UnimplementedTodoServiceHandler) SyncTodos(context.Context, *connect.Request[v1.SyncTodosRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.TodoService.SyncTodos is not implemented"))
+}
+
+func (UnimplementedTodoServiceHandler) CreateTodo(context.Context, *connect.Request[v1.CreateTodoRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.TodoService.CreateTodo is not implemented"))
+}
+
+func (UnimplementedTodoServiceHandler) ToggleTodo(context.Context, *connect.Request[v1.ToggleTodoRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.TodoService.ToggleTodo is not implemented"))
+}
+
+func (UnimplementedTodoServiceHandler) DeleteTodo(context.Context, *connect.Request[v1.DeleteTodoRequest]) (*connect.Response[v1.TodoListResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.TodoService.DeleteTodo is not implemented"))
 }

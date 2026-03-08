@@ -117,6 +117,326 @@ func (x *GreetResponse) GetServedAt() string {
 	return ""
 }
 
+type Todo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Completed     bool                   `protobuf:"varint,3,opt,name=completed,proto3" json:"completed,omitempty"`
+	CreatedAt     string                 `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Todo) Reset() {
+	*x = Todo{}
+	mi := &file_api_v1_greeter_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Todo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Todo) ProtoMessage() {}
+
+func (x *Todo) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_greeter_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Todo.ProtoReflect.Descriptor instead.
+func (*Todo) Descriptor() ([]byte, []int) {
+	return file_api_v1_greeter_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Todo) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Todo) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Todo) GetCompleted() bool {
+	if x != nil {
+		return x.Completed
+	}
+	return false
+}
+
+func (x *Todo) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+type TodoListResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Todos         []*Todo                `protobuf:"bytes,1,rep,name=todos,proto3" json:"todos,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoListResponse) Reset() {
+	*x = TodoListResponse{}
+	mi := &file_api_v1_greeter_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoListResponse) ProtoMessage() {}
+
+func (x *TodoListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_greeter_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoListResponse.ProtoReflect.Descriptor instead.
+func (*TodoListResponse) Descriptor() ([]byte, []int) {
+	return file_api_v1_greeter_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *TodoListResponse) GetTodos() []*Todo {
+	if x != nil {
+		return x.Todos
+	}
+	return nil
+}
+
+type SyncTodosRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SessionId     string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Todos         []*Todo                `protobuf:"bytes,2,rep,name=todos,proto3" json:"todos,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SyncTodosRequest) Reset() {
+	*x = SyncTodosRequest{}
+	mi := &file_api_v1_greeter_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SyncTodosRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SyncTodosRequest) ProtoMessage() {}
+
+func (x *SyncTodosRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_greeter_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SyncTodosRequest.ProtoReflect.Descriptor instead.
+func (*SyncTodosRequest) Descriptor() ([]byte, []int) {
+	return file_api_v1_greeter_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SyncTodosRequest) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *SyncTodosRequest) GetTodos() []*Todo {
+	if x != nil {
+		return x.Todos
+	}
+	return nil
+}
+
+type CreateTodoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SessionId     string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateTodoRequest) Reset() {
+	*x = CreateTodoRequest{}
+	mi := &file_api_v1_greeter_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateTodoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateTodoRequest) ProtoMessage() {}
+
+func (x *CreateTodoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_greeter_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateTodoRequest.ProtoReflect.Descriptor instead.
+func (*CreateTodoRequest) Descriptor() ([]byte, []int) {
+	return file_api_v1_greeter_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CreateTodoRequest) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *CreateTodoRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+type ToggleTodoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SessionId     string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Id            string                 `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ToggleTodoRequest) Reset() {
+	*x = ToggleTodoRequest{}
+	mi := &file_api_v1_greeter_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ToggleTodoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ToggleTodoRequest) ProtoMessage() {}
+
+func (x *ToggleTodoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_greeter_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ToggleTodoRequest.ProtoReflect.Descriptor instead.
+func (*ToggleTodoRequest) Descriptor() ([]byte, []int) {
+	return file_api_v1_greeter_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ToggleTodoRequest) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *ToggleTodoRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type DeleteTodoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SessionId     string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Id            string                 `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteTodoRequest) Reset() {
+	*x = DeleteTodoRequest{}
+	mi := &file_api_v1_greeter_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteTodoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteTodoRequest) ProtoMessage() {}
+
+func (x *DeleteTodoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_greeter_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteTodoRequest.ProtoReflect.Descriptor instead.
+func (*DeleteTodoRequest) Descriptor() ([]byte, []int) {
+	return file_api_v1_greeter_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *DeleteTodoRequest) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *DeleteTodoRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
 var File_api_v1_greeter_proto protoreflect.FileDescriptor
 
 const file_api_v1_greeter_proto_rawDesc = "" +
@@ -126,9 +446,41 @@ const file_api_v1_greeter_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"F\n" +
 	"\rGreetResponse\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\x12\x1b\n" +
-	"\tserved_at\x18\x02 \x01(\tR\bservedAt2H\n" +
+	"\tserved_at\x18\x02 \x01(\tR\bservedAt\"i\n" +
+	"\x04Todo\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
+	"\x05title\x18\x02 \x01(\tR\x05title\x12\x1c\n" +
+	"\tcompleted\x18\x03 \x01(\bR\tcompleted\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x04 \x01(\tR\tcreatedAt\"6\n" +
+	"\x10TodoListResponse\x12\"\n" +
+	"\x05todos\x18\x01 \x03(\v2\f.api.v1.TodoR\x05todos\"U\n" +
+	"\x10SyncTodosRequest\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x01 \x01(\tR\tsessionId\x12\"\n" +
+	"\x05todos\x18\x02 \x03(\v2\f.api.v1.TodoR\x05todos\"H\n" +
+	"\x11CreateTodoRequest\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x14\n" +
+	"\x05title\x18\x02 \x01(\tR\x05title\"B\n" +
+	"\x11ToggleTodoRequest\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x0e\n" +
+	"\x02id\x18\x02 \x01(\tR\x02id\"B\n" +
+	"\x11DeleteTodoRequest\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x0e\n" +
+	"\x02id\x18\x02 \x01(\tR\x02id2H\n" +
 	"\x0eGreeterService\x126\n" +
-	"\x05Greet\x12\x14.api.v1.GreetRequest\x1a\x15.api.v1.GreetResponse\"\x00B/Z-go-next-contract/apps/go-api/gen/api/v1;apiv1b\x06proto3"
+	"\x05Greet\x12\x14.api.v1.GreetRequest\x1a\x15.api.v1.GreetResponse\"\x002\x9f\x02\n" +
+	"\vTodoService\x12A\n" +
+	"\tSyncTodos\x12\x18.api.v1.SyncTodosRequest\x1a\x18.api.v1.TodoListResponse\"\x00\x12C\n" +
+	"\n" +
+	"CreateTodo\x12\x19.api.v1.CreateTodoRequest\x1a\x18.api.v1.TodoListResponse\"\x00\x12C\n" +
+	"\n" +
+	"ToggleTodo\x12\x19.api.v1.ToggleTodoRequest\x1a\x18.api.v1.TodoListResponse\"\x00\x12C\n" +
+	"\n" +
+	"DeleteTodo\x12\x19.api.v1.DeleteTodoRequest\x1a\x18.api.v1.TodoListResponse\"\x00B/Z-go-next-contract/apps/go-api/gen/api/v1;apiv1b\x06proto3"
 
 var (
 	file_api_v1_greeter_proto_rawDescOnce sync.Once
@@ -142,19 +494,35 @@ func file_api_v1_greeter_proto_rawDescGZIP() []byte {
 	return file_api_v1_greeter_proto_rawDescData
 }
 
-var file_api_v1_greeter_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_api_v1_greeter_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_api_v1_greeter_proto_goTypes = []any{
-	(*GreetRequest)(nil),  // 0: api.v1.GreetRequest
-	(*GreetResponse)(nil), // 1: api.v1.GreetResponse
+	(*GreetRequest)(nil),      // 0: api.v1.GreetRequest
+	(*GreetResponse)(nil),     // 1: api.v1.GreetResponse
+	(*Todo)(nil),              // 2: api.v1.Todo
+	(*TodoListResponse)(nil),  // 3: api.v1.TodoListResponse
+	(*SyncTodosRequest)(nil),  // 4: api.v1.SyncTodosRequest
+	(*CreateTodoRequest)(nil), // 5: api.v1.CreateTodoRequest
+	(*ToggleTodoRequest)(nil), // 6: api.v1.ToggleTodoRequest
+	(*DeleteTodoRequest)(nil), // 7: api.v1.DeleteTodoRequest
 }
 var file_api_v1_greeter_proto_depIdxs = []int32{
-	0, // 0: api.v1.GreeterService.Greet:input_type -> api.v1.GreetRequest
-	1, // 1: api.v1.GreeterService.Greet:output_type -> api.v1.GreetResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: api.v1.TodoListResponse.todos:type_name -> api.v1.Todo
+	2, // 1: api.v1.SyncTodosRequest.todos:type_name -> api.v1.Todo
+	0, // 2: api.v1.GreeterService.Greet:input_type -> api.v1.GreetRequest
+	4, // 3: api.v1.TodoService.SyncTodos:input_type -> api.v1.SyncTodosRequest
+	5, // 4: api.v1.TodoService.CreateTodo:input_type -> api.v1.CreateTodoRequest
+	6, // 5: api.v1.TodoService.ToggleTodo:input_type -> api.v1.ToggleTodoRequest
+	7, // 6: api.v1.TodoService.DeleteTodo:input_type -> api.v1.DeleteTodoRequest
+	1, // 7: api.v1.GreeterService.Greet:output_type -> api.v1.GreetResponse
+	3, // 8: api.v1.TodoService.SyncTodos:output_type -> api.v1.TodoListResponse
+	3, // 9: api.v1.TodoService.CreateTodo:output_type -> api.v1.TodoListResponse
+	3, // 10: api.v1.TodoService.ToggleTodo:output_type -> api.v1.TodoListResponse
+	3, // 11: api.v1.TodoService.DeleteTodo:output_type -> api.v1.TodoListResponse
+	7, // [7:12] is the sub-list for method output_type
+	2, // [2:7] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_api_v1_greeter_proto_init() }
@@ -168,9 +536,9 @@ func file_api_v1_greeter_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_v1_greeter_proto_rawDesc), len(file_api_v1_greeter_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   8,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   2,
 		},
 		GoTypes:           file_api_v1_greeter_proto_goTypes,
 		DependencyIndexes: file_api_v1_greeter_proto_depIdxs,

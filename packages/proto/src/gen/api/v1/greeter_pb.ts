@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file api/v1/greeter.proto.
  */
 export const file_api_v1_greeter: GenFile = /*@__PURE__*/
-  fileDesc("ChRhcGkvdjEvZ3JlZXRlci5wcm90bxIGYXBpLnYxIhwKDEdyZWV0UmVxdWVzdBIMCgRuYW1lGAEgASgJIjMKDUdyZWV0UmVzcG9uc2USDwoHbWVzc2FnZRgBIAEoCRIRCglzZXJ2ZWRfYXQYAiABKAkySAoOR3JlZXRlclNlcnZpY2USNgoFR3JlZXQSFC5hcGkudjEuR3JlZXRSZXF1ZXN0GhUuYXBpLnYxLkdyZWV0UmVzcG9uc2UiAEIvWi1nby1uZXh0LWNvbnRyYWN0L2FwcHMvZ28tYXBpL2dlbi9hcGkvdjE7YXBpdjFiBnByb3RvMw");
+  fileDesc("ChRhcGkvdjEvZ3JlZXRlci5wcm90bxIGYXBpLnYxIhwKDEdyZWV0UmVxdWVzdBIMCgRuYW1lGAEgASgJIjMKDUdyZWV0UmVzcG9uc2USDwoHbWVzc2FnZRgBIAEoCRIRCglzZXJ2ZWRfYXQYAiABKAkiSAoEVG9kbxIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRIRCgljb21wbGV0ZWQYAyABKAgSEgoKY3JlYXRlZF9hdBgEIAEoCSIvChBUb2RvTGlzdFJlc3BvbnNlEhsKBXRvZG9zGAEgAygLMgwuYXBpLnYxLlRvZG8iQwoQU3luY1RvZG9zUmVxdWVzdBISCgpzZXNzaW9uX2lkGAEgASgJEhsKBXRvZG9zGAIgAygLMgwuYXBpLnYxLlRvZG8iNgoRQ3JlYXRlVG9kb1JlcXVlc3QSEgoKc2Vzc2lvbl9pZBgBIAEoCRINCgV0aXRsZRgCIAEoCSIzChFUb2dnbGVUb2RvUmVxdWVzdBISCgpzZXNzaW9uX2lkGAEgASgJEgoKAmlkGAIgASgJIjMKEURlbGV0ZVRvZG9SZXF1ZXN0EhIKCnNlc3Npb25faWQYASABKAkSCgoCaWQYAiABKAkySAoOR3JlZXRlclNlcnZpY2USNgoFR3JlZXQSFC5hcGkudjEuR3JlZXRSZXF1ZXN0GhUuYXBpLnYxLkdyZWV0UmVzcG9uc2UiADKfAgoLVG9kb1NlcnZpY2USQQoJU3luY1RvZG9zEhguYXBpLnYxLlN5bmNUb2Rvc1JlcXVlc3QaGC5hcGkudjEuVG9kb0xpc3RSZXNwb25zZSIAEkMKCkNyZWF0ZVRvZG8SGS5hcGkudjEuQ3JlYXRlVG9kb1JlcXVlc3QaGC5hcGkudjEuVG9kb0xpc3RSZXNwb25zZSIAEkMKClRvZ2dsZVRvZG8SGS5hcGkudjEuVG9nZ2xlVG9kb1JlcXVlc3QaGC5hcGkudjEuVG9kb0xpc3RSZXNwb25zZSIAEkMKCkRlbGV0ZVRvZG8SGS5hcGkudjEuRGVsZXRlVG9kb1JlcXVlc3QaGC5hcGkudjEuVG9kb0xpc3RSZXNwb25zZSIAQi9aLWdvLW5leHQtY29udHJhY3QvYXBwcy9nby1hcGkvZ2VuL2FwaS92MTthcGl2MWIGcHJvdG8z");
 
 /**
  * @generated from message api.v1.GreetRequest
@@ -52,6 +52,143 @@ export const GreetResponseSchema: GenMessage<GreetResponse> = /*@__PURE__*/
   messageDesc(file_api_v1_greeter, 1);
 
 /**
+ * @generated from message api.v1.Todo
+ */
+export type Todo = Message<"api.v1.Todo"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title: string;
+
+  /**
+   * @generated from field: bool completed = 3;
+   */
+  completed: boolean;
+
+  /**
+   * @generated from field: string created_at = 4;
+   */
+  createdAt: string;
+};
+
+/**
+ * Describes the message api.v1.Todo.
+ * Use `create(TodoSchema)` to create a new message.
+ */
+export const TodoSchema: GenMessage<Todo> = /*@__PURE__*/
+  messageDesc(file_api_v1_greeter, 2);
+
+/**
+ * @generated from message api.v1.TodoListResponse
+ */
+export type TodoListResponse = Message<"api.v1.TodoListResponse"> & {
+  /**
+   * @generated from field: repeated api.v1.Todo todos = 1;
+   */
+  todos: Todo[];
+};
+
+/**
+ * Describes the message api.v1.TodoListResponse.
+ * Use `create(TodoListResponseSchema)` to create a new message.
+ */
+export const TodoListResponseSchema: GenMessage<TodoListResponse> = /*@__PURE__*/
+  messageDesc(file_api_v1_greeter, 3);
+
+/**
+ * @generated from message api.v1.SyncTodosRequest
+ */
+export type SyncTodosRequest = Message<"api.v1.SyncTodosRequest"> & {
+  /**
+   * @generated from field: string session_id = 1;
+   */
+  sessionId: string;
+
+  /**
+   * @generated from field: repeated api.v1.Todo todos = 2;
+   */
+  todos: Todo[];
+};
+
+/**
+ * Describes the message api.v1.SyncTodosRequest.
+ * Use `create(SyncTodosRequestSchema)` to create a new message.
+ */
+export const SyncTodosRequestSchema: GenMessage<SyncTodosRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_greeter, 4);
+
+/**
+ * @generated from message api.v1.CreateTodoRequest
+ */
+export type CreateTodoRequest = Message<"api.v1.CreateTodoRequest"> & {
+  /**
+   * @generated from field: string session_id = 1;
+   */
+  sessionId: string;
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title: string;
+};
+
+/**
+ * Describes the message api.v1.CreateTodoRequest.
+ * Use `create(CreateTodoRequestSchema)` to create a new message.
+ */
+export const CreateTodoRequestSchema: GenMessage<CreateTodoRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_greeter, 5);
+
+/**
+ * @generated from message api.v1.ToggleTodoRequest
+ */
+export type ToggleTodoRequest = Message<"api.v1.ToggleTodoRequest"> & {
+  /**
+   * @generated from field: string session_id = 1;
+   */
+  sessionId: string;
+
+  /**
+   * @generated from field: string id = 2;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message api.v1.ToggleTodoRequest.
+ * Use `create(ToggleTodoRequestSchema)` to create a new message.
+ */
+export const ToggleTodoRequestSchema: GenMessage<ToggleTodoRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_greeter, 6);
+
+/**
+ * @generated from message api.v1.DeleteTodoRequest
+ */
+export type DeleteTodoRequest = Message<"api.v1.DeleteTodoRequest"> & {
+  /**
+   * @generated from field: string session_id = 1;
+   */
+  sessionId: string;
+
+  /**
+   * @generated from field: string id = 2;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message api.v1.DeleteTodoRequest.
+ * Use `create(DeleteTodoRequestSchema)` to create a new message.
+ */
+export const DeleteTodoRequestSchema: GenMessage<DeleteTodoRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_greeter, 7);
+
+/**
  * @generated from service api.v1.GreeterService
  */
 export const GreeterService: GenService<{
@@ -65,4 +202,43 @@ export const GreeterService: GenService<{
   },
 }> = /*@__PURE__*/
   serviceDesc(file_api_v1_greeter, 0);
+
+/**
+ * @generated from service api.v1.TodoService
+ */
+export const TodoService: GenService<{
+  /**
+   * @generated from rpc api.v1.TodoService.SyncTodos
+   */
+  syncTodos: {
+    methodKind: "unary";
+    input: typeof SyncTodosRequestSchema;
+    output: typeof TodoListResponseSchema;
+  },
+  /**
+   * @generated from rpc api.v1.TodoService.CreateTodo
+   */
+  createTodo: {
+    methodKind: "unary";
+    input: typeof CreateTodoRequestSchema;
+    output: typeof TodoListResponseSchema;
+  },
+  /**
+   * @generated from rpc api.v1.TodoService.ToggleTodo
+   */
+  toggleTodo: {
+    methodKind: "unary";
+    input: typeof ToggleTodoRequestSchema;
+    output: typeof TodoListResponseSchema;
+  },
+  /**
+   * @generated from rpc api.v1.TodoService.DeleteTodo
+   */
+  deleteTodo: {
+    methodKind: "unary";
+    input: typeof DeleteTodoRequestSchema;
+    output: typeof TodoListResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_api_v1_greeter, 1);
 

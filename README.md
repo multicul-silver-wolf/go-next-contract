@@ -50,3 +50,10 @@ pnpm build
 
 - `GO_API_ADDR` (default `:8080`) controls Go API listen address
 - `GO_API_BASE_URL` (default `http://localhost:8080`) controls Next.js RPC target
+- `NEXT_PUBLIC_GO_API_BASE_URL` (default `http://localhost:8080`) controls browser-side Todo RPC target
+
+## Todo V1
+
+- Todo APIs are contract-first in `proto/api/v1/greeter.proto` (`TodoService`).
+- Data is scoped by a browser session id and cached in `sessionStorage`.
+- UI supports create, toggle complete, and delete.
