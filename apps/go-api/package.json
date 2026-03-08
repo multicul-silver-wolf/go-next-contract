@@ -1,0 +1,10 @@
+{
+  "name": "go-api",
+  "private": true,
+  "scripts": {
+    "dev": "go run ./cmd/server",
+    "build": "mkdir -p ./bin && go build -o ./bin/server ./cmd/server",
+    "typecheck": "go test ./...",
+    "lint": "go vet ./..."
+  }
+}

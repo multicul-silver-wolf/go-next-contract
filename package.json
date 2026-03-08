@@ -7,7 +7,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "proto:generate": "cd proto && go run github.com/bufbuild/buf/cmd/buf@v1.59.0 generate"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",

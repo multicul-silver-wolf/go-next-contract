@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "go-next-contract/apps/go-api/gen/api/v1;apiv1";
+
+service GreeterService {
+  rpc Greet(GreetRequest) returns (GreetResponse) {}
+}
+
+message GreetRequest {
+  string name = 1;
+}
+
+message GreetResponse {
+  string message = 1;
+  string served_at = 2;
+}

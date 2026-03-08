@@ -1,21 +1,45 @@
-# shadcn/ui monorepo template
+# go-next-contract
 
-This is a Next.js monorepo template with shadcn/ui.
+A practical monorepo starter for learning **Go + Next.js contract-first development** with Protobuf + Connect RPC.
 
-## Adding components
+## Stack
 
-To add components to your app, run the following command at the root of your `web` app:
+- `apps/web`: Next.js 16 app router
+- `apps/go-api`: Go HTTP server with Connect RPC handlers
+- `proto/`: `.proto` contracts + Buf config
+- `packages/proto`: generated TypeScript protobuf descriptors
+- `packages/ui`: shared shadcn/ui components
+
+## Quick start
 
 ```bash
-pnpm dlx shadcn@latest add button -c apps/web
+pnpm install
+pnpm proto:generate
+pnpm dev
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+`pnpm dev` runs both `web` and `go-api` via Turborepo.
 
-## Using components
+## RPC flow
 
-To use the components in your app, import them from the `ui` package.
+1. Define API in `proto/api/v1/*.proto`
+2. Run `pnpm proto:generate`
+3. Implement handler in `apps/go-api/internal/service`
+4. Consume typed client in `apps/web`
 
-```tsx
-import { Button } from "@workspace/ui/components/button";
+## Useful commands
+
+```bash
+# generate Go + TS files from proto
+pnpm proto:generate
+
+# quality gates
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
+
+## Runtime env
+
+- `GO_API_ADDR` (default `:8080`) controls Go API listen address
+- `GO_API_BASE_URL` (default `http://localhost:8080`) controls Next.js RPC target

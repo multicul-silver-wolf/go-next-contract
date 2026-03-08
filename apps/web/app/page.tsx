@@ -1,18 +1,44 @@
 import { Button } from "@workspace/ui/components/button"
+import { greeterClient } from "@/lib/rpc"
 
-export default function Page() {
+export const dynamic = "force-dynamic"
+
+export default async function Page() {
+  let message = ""
+  let servedAt = ""
+  let error = ""
+
+  try {
+    const res = await greeterClient.greet({ name: "Sawana" })
+    message = res.message
+    servedAt = res.servedAt
+  } catch (err) {
+    error = err instanceof Error ? err.message : "Unknown error"
+  }
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="text-muted-foreground font-mono text-xs">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+    <div className="mx-auto flex min-h-svh w-full max-w-2xl flex-col gap-6 p-6">
+      <div className="space-y-2">
+        <h1 className="text-2xl font-semibold">Go + Next.js Contract Playground</h1>
+        <p className="text-muted-foreground">
+          This page calls a Go Connect-RPC service with generated TypeScript types.
+        </p>
+      </div>
+
+      <div className="rounded-lg border p-4">
+        <p className="font-mono text-sm">Message: {message || "(pending)"}</p>
+        <p className="text-muted-foreground mt-2 text-xs">Served at: {servedAt || "-"}</p>
+        {error ? (
+          <p className="mt-2 text-xs text-red-600">RPC error: {error}</p>
+        ) : null}
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Button asChild>
+          <a href="https://connectrpc.com/docs/introduction" target="_blank" rel="noreferrer">
+            Connect Docs
+          </a>
+        </Button>
       </div>
     </div>
   )
